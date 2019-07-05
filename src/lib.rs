@@ -346,27 +346,46 @@ mod tests {
     }
 
 
-    #[test]
-    fn test_select_first_appearance() {
+     #[test]
+
+    fn test_pointer_select_first_appearance_of_each_symbol() {
+
         let text = "alabar a la alabarda";
+
         let sequence : &Vec<char> = &text.chars().collect();
+
         let tree = PointerWaveletTree::from_sequence(sequence);
 
-       assert_eq!(Some(0), tree.select('a', 1));
-       assert_eq!(Some(1), tree.select('l', 1));
-       assert_eq!(Some(3), tree.select('b', 1));
-       assert_eq!(Some(5), tree.select('r', 1));
-       assert_eq!(Some(6), tree.select(' ', 1));
-       assert_eq!(Some(18), tree.select('d', 1));
+
+
+        assert_eq!(Some(0), tree.select('a', 1));
+
+        assert_eq!(Some(1), tree.select('l', 1));
+
+        assert_eq!(Some(3), tree.select('b', 1));
+
+        assert_eq!(Some(5), tree.select('r', 1));
+
+        assert_eq!(Some(6), tree.select(' ', 1));
+
+        assert_eq!(Some(18), tree.select('d', 1));
+
     }
 
+
+
     #[test]
-    #[ignore]
-    fn test_select_all_appearances_of_one_symbol() {
+
+    fn test_pointer_select_all_appearances_of_one_symbol() {
+
         let text = "alabar a la alabarda";
+
         let sequence : &Vec<char> = &text.chars().collect();
+
         let tree = PointerWaveletTree::from_sequence(sequence);
-        
+
+
+
         assert_eq!(Some(0), tree.select('a', 1));
         assert_eq!(Some(2), tree.select('a', 2));
         assert_eq!(Some(4), tree.select('a', 3));
@@ -376,23 +395,39 @@ mod tests {
         assert_eq!(Some(14), tree.select('a', 7));
         assert_eq!(Some(16), tree.select('a', 8));
         assert_eq!(Some(19), tree.select('a', 9));
+
     }
 
+
+
     #[test]
-    fn test_select_invalid_argument() {
+
+    fn test_pointer_select_invalid_argument() {
+
         let text = "alabar a la alabarda";
         let sequence : &Vec<char> = &text.chars().collect();
         let tree = PointerWaveletTree::from_sequence(sequence);
-        
+
+
+
         // Out of range
+
         assert_eq!(None, tree.select('a', 20));
+
         // Symbol not in alphabet
+
         assert_eq!(None, tree.select('x', 1));
+
         // i too high
+
         assert_eq!(None, tree.select('d', 2));
+
         assert_eq!(None, tree.select('l', 4));
+
         assert_eq!(None, tree.select('r', 3));
+
     }
+
 
 
     #[test]
@@ -447,34 +482,52 @@ mod tests {
 
     #[test]
 
-    fn test_select_ascending_alphabet_as_sequence() {
+    fn test_pointer_select_ascending_alphabet_as_sequence() {
+
         let text = "abcdefghijklmnopqrstuvwxyz";
+
         let sequence : &Vec<char> = &text.chars().collect();
+
         let tree = PointerWaveletTree::from_sequence(sequence);
+
+
+
         let mut pos = 0;
+
         for symbol in tree.alphabet.clone().into_iter() {
-          assert_eq!(Some(pos), tree.select(symbol, 1));
+
+            assert_eq!(Some(pos), tree.select(symbol, 1));
 
             pos = pos + 1;
+
         }
+
     }
 
 
 
     #[test]
 
-    fn test_select_descending_alphabet_as_sequence() {
+    fn test_pointer_select_descending_alphabet_as_sequence() {
+
         let text = "zyxwvutsrqponmlkjihgfedcba";
+
         let sequence : &Vec<char> = &text.chars().collect();
+
         let tree = PointerWaveletTree::from_sequence(sequence);
+
+
+
         let mut pos = 0;
+
         for symbol in tree.alphabet.clone().into_iter().rev() {
-          assert_eq!(Some(pos), tree.select(symbol, 1));
-          pos = pos + 1;
+
+            assert_eq!(Some(pos), tree.select(symbol, 1));
+
+            pos = pos + 1;
+
         }
 
     }
-
-
 
 }
